@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ThinkInk — Student Blog Platform</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">Think<span>Ink</span></div>
+    <div class="nav-links">
+      <a href="#" class="nav-link active" data-page="home">Home</a>
+      <a href="#" class="nav-link" data-page="explore">Explore</a>
+      <a href="#" class="nav-link" data-page="write">Write</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-ghost" id="loginBtn">Log In</button>
+      <button class="btn-primary" id="signupBtn">Sign Up</button>
+    </div>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </nav>
+
+ 
+  <main id="app">
+
+
+    <section class="page active" id="page-home">
+      <div class="hero">
+        <div class="hero-badge">✦ Student Community Platform</div>
+        <h1 class="hero-title">Write. Share.<br/><em>Inspire.</em></h1>
+        <p class="hero-sub">A blog space built for curious minds. Share your projects, notes, ideas, and discoveries with your college community.</p>
+        <div class="hero-cta">
+          <button class="btn-primary large" id="startWritingBtn">Start Writing →</button>
+          <button class="btn-ghost large" id="exploreBtn">Explore Posts</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">240+</span><span class="stat-label">Students</span></div>
+          <div class="stat"><span class="stat-num">1.2k</span><span class="stat-label">Posts</span></div>
+          <div class="stat"><span class="stat-num">18</span><span class="stat-label">Departments</span></div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Trending Posts</h2>
+        <div class="filter-tags" id="filterTags"></div>
+      </div>
+      <div class="posts-grid" id="postsGrid"></div>
+
+      <div class="section-header" style="margin-top:60px">
+        <h2>Featured Writers</h2>
+      </div>
+      <div class="writers-row" id="writersRow"></div>
+    </section>
+
+  
+    <section class="page" id="page-explore">
+      <div class="explore-header">
+        <h2 class="page-title">Explore All Posts</h2>
+        <div class="search-bar">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="searchInput" placeholder="Search by title, tag, or author…"/>
+        </div>
+      </div>
+      <div class="tag-bar" id="exploreTagBar"></div>
+      <div class="posts-list" id="exploreList"></div>
+    </section>
+
+  
+    <section class="page" id="page-write">
+      <div class="editor-wrapper">
+        <div class="editor-top">
+          <h2 class="page-title">New Post</h2>
+          <button class="btn-primary" id="publishBtn">Publish →</button>
+        </div>
+        <input type="text" class="title-input" id="postTitle" placeholder="Your Post Title…"/>
+        <div class="meta-row">
+          <input type="text" class="meta-input" id="postAuthor" placeholder="Your Name"/>
+          <input type="text" class="meta-input" id="postTags" placeholder="Tags (comma separated)"/>
+          <select class="meta-input" id="postCategory">
+            <option value="">Category</option>
+            <option>Tech</option>
+            <option>Science</option>
+            <option>AI/ML</option>
+            <option>Electronics</option>
+            <option>Mathematics</option>
+            <option>Life & Campus</option>
+            <option>Project Showcase</option>
+            <option>Finance</option>
+          </select>
+        </div>
+
+        <div class="cover-upload-area" id="coverUploadArea">
+          <input type="file" id="coverImageInput" accept="image/*" hidden/>
+          <div class="cover-placeholder" id="coverPlaceholder">
+            <span class="cover-icon">🖼️</span>
+            <span class="cover-label">Add a cover image</span>
+            <span class="cover-hint">Click or drag & drop · JPG, PNG, GIF, WebP</span>
+          </div>
+          <img id="coverPreview" class="cover-preview" src="" alt="Cover" hidden/>
+          <button class="cover-remove-btn" id="coverRemoveBtn" hidden>✕ Remove</button>
+        </div>
+
+        <div class="toolbar" id="toolbar">
+          <button data-cmd="bold"><b>B</b></button>
+          <button data-cmd="italic"><i>I</i></button>
+          <button data-cmd="underline"><u>U</u></button>
+          <button data-cmd="insertUnorderedList">• List</button>
+          <button data-cmd="insertOrderedList">1. List</button>
+          <button data-cmd="formatBlock" data-val="h2">H2</button>
+          <button data-cmd="formatBlock" data-val="blockquote">❝</button>
+          <button id="insertCode">{ }</button>
+          <button id="insertImageBtn" title="Insert inline image">🖼 Image</button>
+          <button data-cmd="removeFormat">✕ Clear</button>
+        </div>
+        <input type="file" id="inlineImageInput" accept="image/*" hidden/>
+        <div class="editor-body" id="editorBody" contenteditable="true" placeholder="Start writing your post here…"></div>
+        <div class="editor-footer">
+          <span id="wordCount">0 words</span>
+          <span id="readTime">~0 min read</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-post">
+      <div class="post-view" id="postView"></div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: Auth -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal">
+      <button class="modal-close" id="closeModal">✕</button>
+      <div class="modal-tabs">
+        <button class="tab-btn active" id="tabLogin">Log In</button>
+        <button class="tab-btn" id="tabSignup">Sign Up</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <footer class="footer">
+    <div>Think<span>Ink</span> — Built for students, by students &nbsp;·&nbsp; 2025</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
